@@ -12,7 +12,7 @@ A Dockerized FastAPI blog application with server-rendered pages, JWT auth, SQLi
 ### Run on any machine
 
 ```bash
-git clone https://github.com/Ty951243-eng/fastapi-blog.git
+git clone https://github.com/Ty187-eng/fastapi-blog.git
 cd fastapi-blog
 docker compose up -d --build
 ```
