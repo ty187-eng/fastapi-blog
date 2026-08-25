@@ -1,0 +1,17 @@
+services:
+  web:
+    build: .
+    container_name: fastapi_blog
+    ports:
+      - "8000:8000"
+    environment:
+      - environment=prod
+      - secret_key=CHANGE_TO_A_STRONG_RANDOM_SECRET
+    volumes:
+      - blog_data:/app/data
+      - media_data:/app/media
+    restart: unless-stopped
+
+volumes:
+  blog_data:
+  media_data:
