@@ -3,22 +3,21 @@ const FALLBACK_AVATAR = '/static/profile_pics/default.jpg'
 const ABSOLUTE_URL_RE = /^https?:\/\//i
 
 export function resolveImageUrl(path, fallback = FALLBACK_AVATAR) {
-  if (!path || typeof path !== 'string') {
-    return fallback
-  }
-
-  if (ABSOLUTE_URL_RE.test(path)) {
-    return path
-  }
-
   const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+  const normalizedBase = apiBase.replace(/\/$/, '')
 
-  if (path.startsWith('/')) {
-    if (!apiBase) return path
-    return `${apiBase.replace(/\/$/, '')}${path}`
+  const withBase = (value) => {
+    if (!value || typeof value !== 'string') return value
+    if (ABSOLUTE_URL_RE.test(value)) return value
+    if (!normalizedBase) return value
+    return value.startsWith('/') ? `${normalizedBase}${value}` : `${normalizedBase}/${value}`
   }
 
-  return path
+  if (!path || typeof path !== 'string') {
+    return withBase(fallback)
+  }
+
+  return withBase(path)
 }
 
 export { FALLBACK_AVATAR }

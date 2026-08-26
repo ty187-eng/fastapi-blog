@@ -11,6 +11,7 @@ venv/
 # Environment files
 .env
 .env.*
+!frontend/.env.development
 
 # Local runtime data
 blog.db
