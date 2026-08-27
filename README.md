@@ -1,6 +1,6 @@
 # FastAPI Blog
 
-A Dockerized FastAPI blog application with server-rendered pages, JWT auth, SQLite, and persistent Docker volumes.
+A Dockerized FastAPI blog application with server-rendered pages, JWT auth, PostgreSQL, and persistent Docker volumes.
 
 ## Quick Start
 
@@ -40,7 +40,7 @@ docker compose up -d --build
 
 This project stores runtime data in Docker named volumes:
 
-- `blog_data` -> `/app/data` (SQLite database at `/app/data/blog.db`)
+- `postgres_data` -> PostgreSQL data directory (`/var/lib/postgresql/data`)
 - `media_data` -> `/app/media` (uploaded files)
 
 As long as volumes are kept, data survives container restarts/recreates.
@@ -50,13 +50,15 @@ As long as volumes are kept, data survives container restarts/recreates.
 - Do **not** run `docker compose down -v` unless you want to delete all persisted data.
 - The app can start without a local `.env` file.
 - For real production use, set a strong `secret_key` value in `docker-compose.yml` or environment variables.
+- `DATABASE_URL` is required when running outside Docker Compose. Example:
+  `postgresql+asyncpg://postgres:postgres@localhost:5432/fastapi_blog`
 
 ## Tech Stack
 
 - Python 3.12+
 - FastAPI
 - SQLAlchemy (async)
-- SQLite + aiosqlite
+- PostgreSQL + asyncpg
 - Pydantic Settings
 - JWT (PyJWT)
 - Password hashing via `pwdlib[argon2]`
