@@ -12,6 +12,7 @@ venv/
 .env
 .env.*
 !frontend/.env.development
+!.env.example
 
 # Local runtime data
 blog.db
